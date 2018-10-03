@@ -1,6 +1,6 @@
 {
   "name": "ng-context",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A declarative approach to sharing data through your codebase",
   "keywords": ["ng", "ngx", "angular", "context", "input", "share", "pass"],
   "peerDependencies": {
