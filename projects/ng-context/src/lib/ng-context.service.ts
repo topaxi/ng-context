@@ -26,7 +26,7 @@ export const NgContextProvider = {
   provide: NgContextArray,
   useFactory: NgContextArrayFactory,
   deps: [
-    forwardRef(() => NgContextService),
+    forwardRef(() => NgContextService), // tslint:disable-line
     [new SkipSelf(), new Optional(), NgContextArray]
   ]
 };
