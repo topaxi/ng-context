@@ -129,6 +129,41 @@
           }
         }
       }
+    },
+    "ng-context": {
+      "root": "projects/ng-context",
+      "sourceRoot": "projects/ng-context/src",
+      "projectType": "library",
+      "prefix": "ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-context/tsconfig.lib.json",
+            "project": "projects/ng-context/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-context/src/test.ts",
+            "tsConfig": "projects/ng-context/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-context/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-context/tsconfig.lib.json",
+              "projects/ng-context/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ng-context-app"
