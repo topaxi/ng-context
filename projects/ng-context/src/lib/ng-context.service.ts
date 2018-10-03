@@ -46,7 +46,7 @@ export class NgContextService<T> {
   }
 
   set name(v: string | symbol) {
-    if (v !== undefined && this._name === undefined) {
+    if (this._name === undefined) {
       this._name = v;
     }
   }
