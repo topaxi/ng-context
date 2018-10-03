@@ -2,8 +2,10 @@
   <div *ngContext="let auth consume 'auth'">Hello {{auth}}</div>
   <div ngContext="foo" [value]="'foo value'">
     <div *ngContext="let auth consume 'auth'">Hello {{auth}} 2</div>
-    <div *ngContext="let foo consume 'foo'">Hello {{foo}}</div>
+    <a *ngContext="let foo consume 'foo'" routerLink="lazy">Hello {{foo}}</a>
+    <router-outlet></router-outlet>
   </div>
+
 </div>
 
 <button (click)="render = !render">Toggle Render</button>
