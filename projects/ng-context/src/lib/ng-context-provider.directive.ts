@@ -1,9 +1,9 @@
 import { Directive, Attribute, Input } from '@angular/core';
-import { NgContextService } from './ng-context.service';
+import { NgContextProvider, NgContextService } from './ng-context.service';
 
 @Directive({
   selector: '[ngContext][value]',
-  providers: [NgContextService]
+  providers: [NgContextService, NgContextProvider]
 })
 export class NgContextProviderDirective<T> {
   @Input()
@@ -15,6 +15,6 @@ export class NgContextProviderDirective<T> {
     private readonly context: NgContextService<T>,
     @Attribute('ngContext') ngContextName: string
   ) {
-    this.context.name = ngContextName;
+    context.name = ngContextName;
   }
 }

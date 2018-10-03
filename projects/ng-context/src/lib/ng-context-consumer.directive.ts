@@ -4,13 +4,15 @@ import {
   OnInit,
   OnDestroy,
   Input,
+  Inject,
+  Injector,
   ViewContainerRef,
   TemplateRef,
   EmbeddedViewRef,
   ChangeDetectorRef
 } from '@angular/core';
-import { NgContextService } from './ng-context.service';
-import { NgContextGlobalService } from './ng-context-global.service';
+import { NgContextService, NgContextArray } from './ng-context.service';
+import { byName } from './utils';
 
 export interface NgContextConsumerContext<T> {
   $implicit: T;
@@ -30,7 +32,7 @@ export class NgContextConsumerDirective<T> implements OnInit, OnDestroy {
   private context: NgContextService<T> | null = null;
 
   constructor(
-    private readonly contexts: NgContextGlobalService,
+    @Inject(NgContextArray) private readonly contexts: NgContextService<any>[],
     private readonly viewContainerRef: ViewContainerRef,
     private readonly templateRef: TemplateRef<NgContextConsumerContext<T>>,
     private readonly cd: ChangeDetectorRef
@@ -41,7 +43,15 @@ export class NgContextConsumerDirective<T> implements OnInit, OnDestroy {
       throw new Error(`Unable to get context without consume input`);
     }
 
-    this.context = this.contexts.get(this.ngContextConsume);
+    const context = this.contexts.find(byName(this.ngContextConsume));
+
+    if (context === undefined) {
+      throw new Error(
+        `Context "${this.ngContextConsume.toString()}" not found!`
+      );
+    }
+
+    this.context = context;
     this.valueSubscription = this.context.value$.subscribe(value => {
       this.onValue(value);
     });
