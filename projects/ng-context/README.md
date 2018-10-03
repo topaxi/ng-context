@@ -27,3 +27,28 @@ Declare and consume context:
   </div>
 </ng-container>
 ```
+
+## Inject current context
+
+Inject the context a directive or component currently lives in.
+
+```typescript
+import { NgContextService } from 'ng-context';
+
+@Component({ selector: 'my-component' })
+export class MyComponent {
+  private readonly destroy$ = new Subject<void>();
+
+  constructor(private readonly context: NgContextService<unknown>) {}
+
+  ngOnInit(): void {
+    this.context.value$.pipe(takeUntil(this.destroy$)).subscribe(value => {
+      // context value changed
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+  }
+}
+```
